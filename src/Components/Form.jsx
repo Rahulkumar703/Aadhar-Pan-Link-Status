@@ -58,7 +58,16 @@ export default function Form() {
             const { data } = await axios.post('https://eportal.incometax.gov.in/iec/servicesapi/saveEntity', {
                 pan: formData.panNumber,
                 aadhaarNumber: formData.aadharNumber,
-                serviceName: "linkAadhaarValidationService"
+                serviceName: "linkAadhaarValidationService",
+                createdBy: "linkAadhaarValidationService",
+                createdByUser: formData.panNumber,
+                preLoginFlag: "Y",
+                updatedBy: "linkAadhaarValidationService",
+                updatedByUser: formData.panNumber
+            }, {
+                headers: {
+                    Accept: "application/json, text/plain, */*"
+                }
             });
 
             handelMessages(data);
