@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './Form.css';
 import Loader from './Loader';
+import axios from 'axios';
 
 export default function Form() {
 
@@ -51,22 +52,22 @@ export default function Form() {
         e.preventDefault();
         resetMessages();
 
-        setLoading(true);
+        try {
+            setLoading(true);
 
-        const response = await fetch('https://eportal.incometax.gov.in/iec/servicesapi/saveEntity', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+            const { data } = await axios.post('https://eportal.incometax.gov.in/iec/servicesapi/saveEntity', {
                 pan: formData.panNumber,
                 aadhaarNumber: formData.aadharNumber,
                 serviceName: "linkAadhaarValidationService"
-            })
-        });
-        const data = await response.json();
+            });
 
-        handelMessages(data);
+            handelMessages(data);
+        } catch (error) {
+            setResultMessage(error.message)
+        }
+        finally {
+            setLoading(false);
+        }
     }
 
     const handelMessages = (data) => {
@@ -82,7 +83,6 @@ export default function Form() {
         }
         else
             setResultMessage(data.messages[0].desc);
-        setLoading(false);
     }
 
     return (

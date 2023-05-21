@@ -123,6 +123,7 @@ form .action_buttons {
     line-height: 2.5rem;
     display: grid;
     place-items: center;
+    transition: .3s ease;
 }
 
 .loader_container {
