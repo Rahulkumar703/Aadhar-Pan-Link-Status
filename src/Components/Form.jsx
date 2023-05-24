@@ -54,7 +54,6 @@ export default function Form() {
 
         try {
             setLoading(true);
-            axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
             axios.defaults.withCredentials = true;
             const { data } = await axios.post('https://eportal.incometax.gov.in/iec/servicesapi/saveEntity',
                 {
