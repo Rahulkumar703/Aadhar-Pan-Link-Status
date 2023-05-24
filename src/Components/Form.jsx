@@ -54,26 +54,25 @@ export default function Form() {
 
         try {
             setLoading(true);
-
-            const { data } = await axios.post('https://eportal.incometax.gov.in/iec/servicesapi/saveEntity', {
-                pan: formData.panNumber,
-                aadhaarNumber: formData.aadharNumber,
-                serviceName: "linkAadhaarValidationService",
-                createdBy: "linkAadhaarValidationService",
-                createdByUser: formData.panNumber,
-                preLoginFlag: "Y",
-                updatedBy: "linkAadhaarValidationService",
-                updatedByUser: formData.panNumber
-            }, {
-                headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json",
-                    sn: "linkAadhaarValidationService",
-                    Origin: "https://eportal.incometax.gov.in",
-                    Host: "eportal.incometax.gov.in",
-                    Cookie: "693c4e2771754eedb1d75ba0debd40d8=c8fc6a2d1c99c9b4ec69ee39f5b8af19"
-                }
-            });
+            axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+            axios.defaults.withCredentials = true;
+            const { data } = await axios.post('https://eportal.incometax.gov.in/iec/servicesapi/saveEntity',
+                {
+                    pan: formData.panNumber,
+                    aadhaarNumber: formData.aadharNumber,
+                    serviceName: "linkAadhaarValidationService",
+                    createdBy: "linkAadhaarValidationService",
+                    createdByUser: formData.panNumber,
+                    preLoginFlag: "N",
+                    updatedBy: "linkAadhaarValidationService",
+                    updatedByUser: formData.panNumber
+                },
+                {
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        sn: "linkAadhaarValidationService",
+                    }
+                });
 
             handelMessages(data);
         } catch (error) {
@@ -110,7 +109,7 @@ export default function Form() {
                         id="pan-number"
                         value={formData.panNumber}
                         onChange={handelChange}
-                        placeholder='ABC123FK5'
+                        placeholder='ABCDE1234F'
                         autoComplete='pan'
                     />
                     <label htmlFor="pan-number">Pan Number</label>
