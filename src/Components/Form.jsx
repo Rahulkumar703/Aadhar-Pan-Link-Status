@@ -66,7 +66,12 @@ export default function Form() {
                 updatedByUser: formData.panNumber
             }, {
                 headers: {
-                    Accept: "application/json, text/plain, */*"
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                    sn: "linkAadhaarValidationService",
+                    Origin: "https://eportal.incometax.gov.in",
+                    Host: "eportal.incometax.gov.in",
+                    Cookie: "693c4e2771754eedb1d75ba0debd40d8=c8fc6a2d1c99c9b4ec69ee39f5b8af19"
                 }
             });
 
